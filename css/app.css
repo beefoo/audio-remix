@@ -23,6 +23,23 @@ video {
   height: auto;
 }
 
+table {
+  border-collapse: collapse;
+  box-sizing: border-box;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+}
+tr {
+  margin: 0;
+  padding: 0;
+}
+td {
+  margin: 0;
+  padding: 3px 6px;
+  border-right: 2px solid black;
+  border-top: 2px solid black;
+}
+
 .visually-hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
