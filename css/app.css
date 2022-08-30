@@ -18,6 +18,11 @@ li {
   line-height: 1.8;
 }
 
+video {
+  width: 360px;
+  height: auto;
+}
+
 .visually-hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
