@@ -26,6 +26,7 @@ class App {
     $.getJSON(this.options.data, (data) => {
       const columns = data.itemHeadings;
       this.data = _.map(data.items, (row, index) => _.object(columns, row));
+      this.data = _.sortBy(this.data, (item) => item.title);
       promise.resolve();
     });
 
@@ -37,25 +38,31 @@ class App {
   }
 
   loadUI() {
-    const $table = $('<table class="clips"></table>');
-    const { options } = this;
-
+    let html = '';
+    html += '<div class="clips">';
     _.each(this.data, (clip) => {
-      const $tr = $('<tr></tr>');
-      $tr.append(`<td><a href="${clip.url}" target="_blank">${clip.title}</a></td>`);
-      $tr.append(`<td>(${clip['start time']})</td>`);
-      const filename = options.filedir + clip.filename;
+      const $clip = $('<div class="clip"></div>');
+      const filename = this.options.filedir + clip.filename;
       const ext = _.last(clip.filename.split('.'));
+      html += '<div class="clip">';
+      html +=   `<button class="item-details" title="${clip.title} (${clip['start time']})">`;
+      html +=     `<div class="title">${clip.title} (${clip['start time']})</div>`;
+      html +=   '</button>';
+      html +=   `<button class="item-play ${clip['file type']}" data-src="${filename}">`;
       if (clip['file type'] === 'video') {
-        $tr.append(`<td><video src="${filename}" controls></video></td>`);
-      } else {
-        $tr.append(`<td><audio src="${filename}" controls /></td>`);
+        html +=   `<video src="${filename}"></video>`;
       }
-      $tr.append(`<td><a href="${filename}" download="${clip.filename}">Download clip</a></td>`);
-      $tr.append(`<td><a href="${clip.assetUrl}" download="${clip.id}.${ext}">Download full</a></td>`);
-      $table.append($tr);
+      html +=   '</button>';
+      html +=   '<div class="links">';
+      html +=     `<a href="${clip.url}" target="_blank" title="View detail page"><img src="img/noun-information-button-446237.svg" /></a>`;
+      html +=     `<a href="${filename}" download="${clip.filename}" title="Download clip"><img src="img/noun-download-445253.svg" /></a>`;
+      html +=     `<a href="${clip.assetUrl}" download="${clip.id}.${ext}" title="Download full source"><img src="img/noun-file-445252.svg" /></a>`;
+      html +=   '</div>'
+      html += '</div>';
     });
 
-    this.$el.append($table);
+    html += '</div>';
+    const $clips = $(html);
+    this.$el.append($clips);
   }
 }
