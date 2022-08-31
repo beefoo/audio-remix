@@ -35,6 +35,7 @@ class App {
 
   loadListeners() {
     this.audioManager = new AudioManager();
+    this.videoManager = new VideoManager();
   }
 
   loadUI() {

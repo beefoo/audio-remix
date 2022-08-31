@@ -31,8 +31,8 @@ video {
   position: absolute;
   top: 0;
   left: 50%;
-  margin-left: -180px;
   transform: scale3d(1.1, 1.1, 1);
+  transform-origin: center center;
 }
 
 .clips {
