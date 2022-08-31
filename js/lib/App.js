@@ -34,7 +34,7 @@ class App {
   }
 
   loadListeners() {
-
+    this.audioManager = new AudioManager();
   }
 
   loadUI() {
