@@ -46,19 +46,20 @@ class App {
       const filename = this.options.filedir + clip.filename;
       const ext = _.last(clip.filename.split('.'));
       html += '<div class="clip">';
-      html +=   `<button class="item-details" title="${clip.title} (${clip['start time']})">`;
-      html +=     `<div class="title">${clip.title} (${clip['start time']})</div>`;
-      html +=   '</button>';
-      html +=   `<button class="item-play ${clip['file type']}" data-src="${filename}">`;
+      html += `  <button class="item-details" title="${clip.title} (${clip['start time']})">`;
+      html += `    <div class="title">${clip.title} (${clip['start time']})</div>`;
+      html += '  </button>';
+      html += `  <button class="item-play ${clip['file type']}" data-src="${filename}">`;
       if (clip['file type'] === 'video') {
-        html +=   `<video src="${filename}"></video>`;
+        html += `  <video src="${filename}"></video>`;
       }
-      html +=   '</button>';
-      html +=   '<div class="links">';
-      html +=     `<a href="${clip.url}" target="_blank" title="View detail page"><img src="img/noun-information-button-446237.svg" /></a>`;
-      html +=     `<a href="${filename}" download="${clip.filename}" title="Download clip"><img src="img/noun-download-445253.svg" /></a>`;
-      html +=     `<a href="${clip.assetUrl}" download="${clip.id}.${ext}" title="Download full source"><img src="img/noun-file-445252.svg" /></a>`;
-      html +=   '</div>'
+      html += '  </button>';
+      html += '  <div class="links">';
+      html += `    <a href="${clip.url}" target="_blank" title="View detail page"><img src="img/noun-information-button-446237.svg" /></a>`;
+      html += `    <a href="${filename}" download="${clip.filename}" title="Download clip"><img src="img/noun-download-445253.svg" /></a>`;
+      html += `    <a href="${clip.assetUrl}" download="${clip.id}.${ext}" title="Download full source"><img src="img/noun-file-445252.svg" /></a>`;
+      html += `    <button class="loop-${clip['file type']}" data-src="${filename}" title="Loop audio"><img src="img/noun-loop-2439336.svg" /></button>`;
+      html += '  </div>';
       html += '</div>';
     });
 

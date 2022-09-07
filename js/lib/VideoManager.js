@@ -12,6 +12,7 @@ class VideoManager {
 
   loadListeners() {
     $('.app').on('click', 'video', (e) => this.constructor.play(e));
+    $('.app').on('click', '.loop-video', (e) => this.constructor.loop(e));
   }
 
   static loadUI() {
@@ -22,6 +23,16 @@ class VideoManager {
         $el.css('margin-left', `-${(width / 2)}px`);
       });
     });
+  }
+
+  static loop(event) {
+    const $button = $(event.currentTarget);
+    $button.toggleClass('active');
+    const isActive = $button.hasClass('active');
+    const src = $button.attr('data-src');
+    const $video = $(`video[src="${src}"]`);
+    const video = $video[0];
+    video.loop = isActive;
   }
 
   static play(event) {
