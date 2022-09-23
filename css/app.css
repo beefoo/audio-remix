@@ -18,6 +18,11 @@ li {
   line-height: 1.8;
 }
 
+form {
+  padding: 1rem;
+  font-size: 1.667rem;
+}
+
 button {
   border: none;
   margin: 0;
@@ -51,6 +56,10 @@ video {
   box-sizing: border-box;
   border: 2px solid #222;
   position: relative;
+  display: none;
+}
+.clip.active {
+  display: block;
 }
 .item-details {
   width: 100%;

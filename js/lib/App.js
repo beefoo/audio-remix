@@ -1,7 +1,7 @@
 class App {
   constructor(options = {}) {
     const defaults = {
-      data: 'data/clips_play.json',
+      data: 'data/clips.json',
       filedir: 'clips/',
     };
     const q = StringUtil.queryParams();
@@ -11,6 +11,7 @@ class App {
   init() {
     this.initialized = true;
     this.$el = $('#app');
+    this.$themeSelect = $('#theme-select');
 
     const dataReady = this.loadData();
 
@@ -36,16 +37,19 @@ class App {
   loadListeners() {
     this.audioManager = new AudioManager();
     this.videoManager = new VideoManager();
+
+    this.$themeSelect.on('change', (e) => {
+      this.constructor.selectTheme(this.$themeSelect.val());
+    });
   }
 
   loadUI() {
     let html = '';
     html += '<div class="clips">';
     _.each(this.data, (clip) => {
-      const $clip = $('<div class="clip"></div>');
       const filename = this.options.filedir + clip.filename;
       const ext = _.last(clip.filename.split('.'));
-      html += '<div class="clip">';
+      html += `<div class="clip ${clip.theme} active">`;
       html += `  <button class="item-details" title="${clip.title} (${clip['start time']})">`;
       html += `    <div class="title">${clip.title} (${clip['start time']})</div>`;
       html += '  </button>';
@@ -66,5 +70,20 @@ class App {
     html += '</div>';
     const $clips = $(html);
     this.$el.append($clips);
+
+    const themes = _.uniq(_.pluck(this.data, 'theme'));
+    const { $themeSelect } = this;
+    _.each(themes, (theme) => {
+      $themeSelect.append($(`<option value="${theme}">${theme}</option>`));
+    });
+  }
+
+  static selectTheme(theme) {
+    if (theme === 'all') {
+      $('.clip').addClass('active');
+      return;
+    }
+    $('.clip').removeClass('active');
+    $(`.clip.${theme}`).addClass('active');
   }
 }
